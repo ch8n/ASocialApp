@@ -7,7 +7,8 @@ import com.ch8n.linkedin.ui.feeds.FeedsFragment
 import com.ch8n.linkedin.ui.post.PostFragment
 
 
-class HomePagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
+class HomePagerAdapter private constructor(activity: FragmentActivity) :
+    FragmentStateAdapter(activity) {
 
     private val fragments by lazy {
         mutableMapOf<String, Fragment>(
@@ -30,5 +31,9 @@ class HomePagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activi
 
     fun onClear() {
         fragments.clear()
+    }
+
+    companion object {
+        fun newInstance(activity: FragmentActivity) = HomePagerAdapter(activity)
     }
 }

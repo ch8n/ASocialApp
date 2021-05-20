@@ -1,34 +1,33 @@
 package com.ch8n.linkedin.ui.home
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import com.ch8n.linkedin.R
 import com.ch8n.linkedin.databinding.FragmentHomeBinding
 import com.ch8n.linkedin.ui.home.adapter.HomePagerAdapter
 import com.ch8n.linkedin.ui.home.adapter.ZoomOutPageTransformer
 import com.ch8n.linkedin.utils.base.ViewBindingFragment
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.squareup.picasso.Picasso
 
 class HomeFragment : ViewBindingFragment<FragmentHomeBinding>() {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
 
-    private var notePagerAdapter: HomePagerAdapter? = null
+    private var homePagerAdapter: HomePagerAdapter? = null
 
     override fun setup() = with(binding) {
-        pagerNotes.adapter = HomePagerAdapter(this@HomeFragment.requireActivity())
-            .also { notePagerAdapter = it }
-        pagerNotes.setPageTransformer(ZoomOutPageTransformer())
-        TabLayoutMediator(tabs, pagerNotes) { tab, position ->
-            tab.text = notePagerAdapter?.getTabName(position)
-        }.attach()
+        HomePagerAdapter
+            .newInstance(this@HomeFragment.requireActivity())
+            .also { homePagerAdapter = it }
+            .also { pagerNotes.adapter = it }
+            .also { pagerNotes.setPageTransformer(ZoomOutPageTransformer()) }
+            .let {
+                TabLayoutMediator(tabs, pagerNotes) { tab, position ->
+                    tab.text = it.getTabName(position)
+                }
+            }.attach()
+
         applyBackPressBehaviour()
     }
 
@@ -51,7 +50,8 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        notePagerAdapter = null
+        homePagerAdapter?.onClear()
+        homePagerAdapter = null
     }
 
 }

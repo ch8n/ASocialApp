@@ -1,4 +1,4 @@
-package com.ch8n.linkedin.sample
+package com.ch8n.linkedin.data.models
 
 import com.github.javafaker.Faker
 import java.util.*
@@ -67,7 +67,7 @@ data class Post(
                 post
             }
 
-        val mockPost by lazy {
+        val fakePosts by lazy {
             mutableListOf<Post>().apply {
                 repeat(20) { add(fakePost) }
             }

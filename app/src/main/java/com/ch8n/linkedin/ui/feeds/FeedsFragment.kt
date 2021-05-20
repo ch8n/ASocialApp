@@ -1,60 +1,41 @@
 package com.ch8n.linkedin.ui.feeds
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.ch8n.linkedin.R
+import com.ch8n.linkedin.data.models.Post
+import com.ch8n.linkedin.data.models.User
+import com.ch8n.linkedin.databinding.FragmentFeedsBinding
+import com.ch8n.linkedin.ui.feeds.adapter.Feed
+import com.ch8n.linkedin.ui.feeds.adapter.FeedsAdapter
+import com.ch8n.linkedin.utils.RecyclerInteraction
+import com.ch8n.linkedin.utils.base.ViewBindingFragment
+import com.ch8n.linkedin.utils.toast
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class FeedsFragment : ViewBindingFragment<FragmentFeedsBinding>() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FeedsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class FeedsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentFeedsBinding
+        get() = FragmentFeedsBinding::inflate
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var feedsAdapter: FeedsAdapter? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_feeds, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FeedsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FeedsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun setup(): Unit = with(binding) {
+        FeedsAdapter
+            .newInstance(object : RecyclerInteraction<Feed> {
+                override fun onClick(payLoad: Feed) {
+                    toast(payLoad.toString())
                 }
             }
+            ).also { feedsAdapter = it }
+            .also { listFeed.adapter = it }
+            .also {
+                val feeds = Post.fakePosts.map { post ->
+                    val creator = User.mockUsers.first { user ->
+                        user.id == post.userId
+                    }
+                    Feed(post, creator)
+                }
+                it.submitList(feeds)
+            }
     }
+
 }
