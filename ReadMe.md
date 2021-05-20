@@ -1,4 +1,5 @@
 # Social App
+Social feed app similar to linkedIn
 
 # Requirements
 1. Has a fixed set of pre-existing users, say 5 users.
