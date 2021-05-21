@@ -2,6 +2,7 @@ package com.ch8n.linkedin.ui.router
 
 import com.ch8n.linkedin.ui.feeds.adapter.Feed
 
+
 interface Router {
     fun toLoginScreen()
     fun toHomeScreen()

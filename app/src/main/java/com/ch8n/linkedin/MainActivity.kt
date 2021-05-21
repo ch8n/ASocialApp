@@ -1,6 +1,5 @@
 package com.ch8n.linkedin
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import com.ch8n.linkedin.databinding.ActivityMainBinding

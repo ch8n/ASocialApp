@@ -8,6 +8,7 @@ import com.ch8n.linkedin.data.models.Comment
 import com.ch8n.linkedin.data.models.Post
 import com.ch8n.linkedin.data.models.User
 import com.ch8n.linkedin.databinding.FragmentDetailBinding
+import com.ch8n.linkedin.ui.detail.adapter.CommentsAdapter
 import com.ch8n.linkedin.ui.feeds.adapter.Feed
 import com.ch8n.linkedin.utils.base.ViewBindingFragment
 import com.ch8n.linkedin.utils.clearLineLimits
@@ -28,14 +29,20 @@ class DetailFragment : ViewBindingFragment<FragmentDetailBinding>() {
             return feed ?: Feed.empty
         }
 
+    private var commentsAdapter: CommentsAdapter? = null
+
     override fun setup() = with(binding) {
         setupContent(feedOrExit.post, feedOrExit.user)
         setupComments(feedOrExit.post.comments)
         applyBackPressBehaviour()
     }
 
-    private fun setupComments(comments: List<Comment>) {
-        
+    private fun setupComments(comments: List<Comment>) = with(binding) {
+        containerNoComments.root.setVisible(comments.isEmpty())
+        CommentsAdapter.newInstance()
+            .also { commentsAdapter = it }
+            .also { it.submitList(comments) }
+            .also { listComments.adapter = it }
     }
 
     private fun setupContent(post: Post, user: User) = with(binding.containerPost) {
@@ -60,6 +67,7 @@ class DetailFragment : ViewBindingFragment<FragmentDetailBinding>() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        commentsAdapter = null
     }
 
     companion object {

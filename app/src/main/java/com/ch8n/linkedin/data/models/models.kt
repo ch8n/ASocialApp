@@ -27,8 +27,8 @@ data class User(
             User(
                 id = "1234567890",
                 password = "qwerty",
-                avatarUrl = avatar().image(),
-                userName = name().fullName(),
+                avatarUrl = "https://i.pravatar.cc/150?img=${(1..100).random()}",
+                userName = "Chetan",
                 postIds = mutableListOf()
             )
         }
@@ -37,7 +37,7 @@ data class User(
             User(
                 id = id,
                 password = "qwerty",
-                avatarUrl = avatar().image(),
+                avatarUrl = "https://i.pravatar.cc/150?img=${(1..100).random()}",
                 userName = hobbit().character(),
                 postIds = mutableListOf()
             )
@@ -84,7 +84,7 @@ data class Post(
 
         val fakePosts by lazy {
             mutableListOf<Post>().apply {
-                repeat(20) { add(fakePost) }
+                repeat(100) { add(fakePost) }
             }
         }
     }
@@ -94,15 +94,20 @@ data class Post(
 data class Comment(
     val id: String,
     val message: String,
-    val userId: String
+    val userId: String,
+    val userName: String,
+    val userAvatar: String,
 ) : Parcelable {
     companion object {
         val fakeComment
             get() = with(Faker.instance()) {
+                val user = User.mockUsers.random()
                 Comment(
                     id = UUID.randomUUID().toString(),
                     message = elderScrolls().quote(),
-                    userId = User.mockUsers.random().id
+                    userId = user.id,
+                    userName = user.userName,
+                    userAvatar = user.avatarUrl
                 )
             }
 

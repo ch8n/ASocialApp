@@ -1,36 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#c2c2c2"
     tools:context=".ui.detail.DetailFragment">
 
     <include
         android:id="@+id/container_post"
         layout="@layout/list_item_feeds" />
 
-    <ScrollView
+    <include
+        android:id="@+id/container_no_comments"
+        layout="@layout/layout_empty" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_comments"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/list_item_comment" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <include layout="@layout/list_item_comment"/>
-            <include layout="@layout/list_item_comment"/>
-            <include layout="@layout/list_item_comment"/>
-            <include layout="@layout/list_item_comment"/>
-            <include layout="@layout/list_item_comment"/>
-            <include layout="@layout/list_item_comment"/>
-            <include layout="@layout/list_item_comment"/>
-            <include layout="@layout/list_item_comment"/>
-
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-    </ScrollView>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
