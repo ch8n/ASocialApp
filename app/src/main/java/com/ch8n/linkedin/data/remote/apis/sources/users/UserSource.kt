@@ -36,7 +36,7 @@ class UserSourceProvider constructor(private val apiManager: ApiManager) : UserS
 object FakeUserService : UserService {
 
     override suspend fun loginUser(userId: String, password: String): User {
-        delay(1000)
+        delay(500)
         val users = User.mockUsers
         val currentUser = users.first { it.id == userId }
         if (currentUser.password != password) {
@@ -46,7 +46,7 @@ object FakeUserService : UserService {
     }
 
     override suspend fun getUser(userId: String): User {
-        delay(1000)
+        delay(500)
         return User.mockUsers.first { it.id == userId }
     }
 }

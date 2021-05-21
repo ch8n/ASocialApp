@@ -11,7 +11,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : ViewBindingFragment<FragmentHomeBinding>() {
 
-
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
 
@@ -23,6 +22,7 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>() {
             .also { homePagerAdapter = it }
             .also { pagerNotes.adapter = it }
             .also { pagerNotes.setPageTransformer(ZoomOutPageTransformer()) }
+            .also { pagerNotes.isUserInputEnabled = false }
             .let {
                 TabLayoutMediator(tabs, pagerNotes) { tab, position ->
                     tab.text = it.getTabName(position)
@@ -56,6 +56,5 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>() {
     }
 
     override val TAG: String get() = "HomeFragment"
-
 
 }

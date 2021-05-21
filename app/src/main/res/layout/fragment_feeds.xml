@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#c2c2c2"
     android:orientation="vertical"
     tools:context=".ui.feeds.FeedsFragment">
 
@@ -16,22 +17,31 @@
         android:text="Home"
         android:textColor="@color/black"
         android:textSize="32sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textStyle="bold" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/pullRefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_feed"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:listitem="@layout/list_item_feeds" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/container_no_post"
+                layout="@layout/layout_empty" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_feed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/list_item_feeds" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

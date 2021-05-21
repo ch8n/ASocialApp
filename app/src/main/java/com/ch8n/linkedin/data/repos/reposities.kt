@@ -9,6 +9,10 @@ class PostRepository(private val postSource: PostSource) {
     suspend fun getSocialFeeds() = withContext(Dispatchers.IO) {
         postSource.getSocialFeeds()
     }
+
+    suspend fun getUserPosts(userId: String) = withContext(Dispatchers.IO) {
+        postSource.getUserPost(userId)
+    }
 }
 
 class UserRepository(private val userSource: UserSource) {

@@ -1,5 +1,6 @@
 package com.ch8n.linkedin.ui.post
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.ch8n.linkedin.data.models.Post
@@ -7,9 +8,11 @@ import com.ch8n.linkedin.data.models.User
 import com.ch8n.linkedin.databinding.FragmentPostBinding
 import com.ch8n.linkedin.ui.feeds.adapter.Feed
 import com.ch8n.linkedin.ui.feeds.adapter.FeedsAdapter
+import com.ch8n.linkedin.ui.post.di.PostDI
 import com.ch8n.linkedin.utils.RecyclerInteraction
 import com.ch8n.linkedin.utils.base.ViewBindingFragment
 import com.ch8n.linkedin.utils.setVisible
+import com.google.android.material.snackbar.Snackbar
 
 
 class PostFragment : ViewBindingFragment<FragmentPostBinding>() {
@@ -18,8 +21,33 @@ class PostFragment : ViewBindingFragment<FragmentPostBinding>() {
         get() = FragmentPostBinding::inflate
 
     private var postAdapter: FeedsAdapter? = null
+    private val viewModel: UserPostViewModel by lazy { PostDI.provideFeedViewModel(this) }
 
     override fun setup(): Unit = with(binding) {
+
+        pullRefresh.isRefreshing = true
+        containerNoPost.textEmpty.text = "You didn't Post"
+
+        viewModel.error.observe(viewLifecycleOwner) {
+            it ?: return@observe
+            pullRefresh.isRefreshing = false
+            val (error, message) = it
+            Log.e(TAG, message, error)
+            Snackbar.make(root, message, Snackbar.LENGTH_SHORT).show()
+        }
+
+        viewModel.userFeeds.observe(viewLifecycleOwner) {
+            it ?: return@observe
+            containerNoPost.root.setVisible(it.isEmpty())
+            postAdapter?.submitList(it) {
+                pullRefresh.isRefreshing = false
+            }
+        }
+
+        pullRefresh.setOnRefreshListener {
+            viewModel.getUserFeeds()
+        }
+
         FeedsAdapter
             .newInstance(object : RecyclerInteraction<Feed> {
                 override fun onClick(payLoad: Feed) {
@@ -28,20 +56,6 @@ class PostFragment : ViewBindingFragment<FragmentPostBinding>() {
             })
             .also { postAdapter = it }
             .also { listUserPost.adapter = it }
-            .also {
-                val feeds = Post.mockPosts
-                    .map { post ->
-                        val creator = User.mockUsers.first { user ->
-                            user.id == post.userId
-                        }
-                        Feed(post, creator)
-                    }.filter {
-                        it.post.userId == User.superUser.id
-                    }
-                containerNoPost.root.setVisible(feeds.isEmpty())
-                containerNoPost.textEmpty.text = "You didn't Post"
-                it.submitList(feeds)
-            }
     }
 
     override val TAG: String

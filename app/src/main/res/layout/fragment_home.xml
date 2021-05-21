@@ -23,7 +23,7 @@
         android:layout_height="55dp"
         android:layout_gravity="bottom"
         android:background="@color/white"
-        app:tabMode="scrollable"
+        app:tabMode="auto"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

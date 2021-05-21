@@ -55,6 +55,7 @@ fun ViewBindingFragment<*>.toast(message: String) {
 
 fun ViewBindingActivity<*>.commitTransaction(
     fragment: ViewBindingFragment<*>,
+    addToStack: Boolean = true,
     onCompleted: () -> Unit = {}
 ) {
     supportFragmentManager
@@ -65,7 +66,9 @@ fun ViewBindingActivity<*>.commitTransaction(
         }
         .beginTransaction()
         .add(requiredFragmentContainer().id, fragment)
-        .addToBackStack(fragment.TAG)
+        .apply {
+            if (addToStack) addToBackStack(fragment.TAG)
+        }
         .commit()
     supportFragmentManager.executePendingTransactions()
     Handler().post(onCompleted)

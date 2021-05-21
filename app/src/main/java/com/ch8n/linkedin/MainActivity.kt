@@ -38,7 +38,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>(), Router {
 
     override fun toLoginScreen() = commitTransaction(LoginFragment())
 
-    override fun toHomeScreen() = commitTransaction(HomeFragment())
+    override fun toHomeScreen() = commitTransaction(HomeFragment(), addToStack = false)
 
     override fun toFeedScreen() = commitTransaction(FeedsFragment())
 

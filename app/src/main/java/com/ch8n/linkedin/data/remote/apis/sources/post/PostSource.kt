@@ -32,7 +32,7 @@ class PostSourceProvider constructor(private val apiManager: ApiManager) : PostS
 object FakePostService : PostService {
     override suspend fun getSocialFeeds(): List<Feed> {
         // backend logic
-        delay(1000)
+        delay(500)
         val posts = Post.mockPosts
         val users = User.mockUsers
         val feeds = posts.map { post ->
@@ -44,7 +44,7 @@ object FakePostService : PostService {
 
     override suspend fun getUserPost(userId: String): List<Feed> {
         // backend logic
-        delay(1000)
+        delay(500)
         val posts = Post.mockPosts
         val currentUser = User.mockUsers.first { it.id == userId }
         val feeds = posts

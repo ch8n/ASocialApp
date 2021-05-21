@@ -3,14 +3,14 @@ package com.ch8n.linkedin.ui.feeds
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.ch8n.linkedin.data.models.Post
-import com.ch8n.linkedin.data.models.User
 import com.ch8n.linkedin.databinding.FragmentFeedsBinding
 import com.ch8n.linkedin.ui.feeds.adapter.Feed
 import com.ch8n.linkedin.ui.feeds.adapter.FeedsAdapter
 import com.ch8n.linkedin.ui.feeds.di.FeedDI
+import com.ch8n.linkedin.ui.post.di.PostDI
 import com.ch8n.linkedin.utils.RecyclerInteraction
 import com.ch8n.linkedin.utils.base.ViewBindingFragment
+import com.ch8n.linkedin.utils.setVisible
 import com.google.android.material.snackbar.Snackbar
 
 class FeedsFragment : ViewBindingFragment<FragmentFeedsBinding>() {
@@ -25,17 +25,19 @@ class FeedsFragment : ViewBindingFragment<FragmentFeedsBinding>() {
     override fun setup(): Unit = with(binding) {
 
         pullRefresh.isRefreshing = true
+        containerNoPost.textEmpty.text = "No Social Updates..."
 
         viewModel.error.observe(viewLifecycleOwner) {
             it ?: return@observe
             pullRefresh.isRefreshing = false
             val (error, message) = it
             Log.e(TAG, message, error)
-            Snackbar.make(listFeed, message, Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(root, message, Snackbar.LENGTH_SHORT).show()
         }
 
         viewModel.socialFeeds.observe(viewLifecycleOwner) {
             it ?: return@observe
+            containerNoPost.root.setVisible(it.isEmpty())
             feedsAdapter?.submitList(it) {
                 pullRefresh.isRefreshing = false
             }
