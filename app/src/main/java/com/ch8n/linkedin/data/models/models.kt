@@ -1,16 +1,28 @@
 package com.ch8n.linkedin.data.models
 
+import android.os.Parcelable
 import com.github.javafaker.Faker
+import kotlinx.parcelize.Parcelize
 import java.util.*
 
+@Parcelize
 data class User(
     val id: String,
     val password: String,
     val userName: String,
     val avatarUrl: String,
     val postIds: MutableList<String>
-) {
+) : Parcelable {
     companion object {
+
+        val empty = User(
+            id = "",
+            password = "",
+            userName = "",
+            avatarUrl = "",
+            postIds = mutableListOf()
+        )
+
         val superUser = with(Faker.instance()) {
             User(
                 id = "1234567890",
@@ -43,13 +55,16 @@ data class User(
     }
 }
 
+@Parcelize
 data class Post(
     val id: String,
     val userId: String,
     val content: String,
     val comments: List<Comment>
-) {
+) : Parcelable {
     companion object {
+        val empty = Post(id = "", userId = "", content = "", comments = emptyList())
+
         val fakePost
             get() = with(Faker.instance()) {
                 val post = Post(
@@ -58,7 +73,7 @@ data class Post(
                     content = friends().quote(),
                     comments = mutableListOf<Comment>().apply {
                         repeat((0..5).random()) {
-                            add(Comment.fakeComment)
+                            add(Comment.mockComments.random())
                         }
                     }
                 )
@@ -75,11 +90,12 @@ data class Post(
     }
 }
 
+@Parcelize
 data class Comment(
     val id: String,
     val message: String,
     val userId: String
-) {
+) : Parcelable {
     companion object {
         val fakeComment
             get() = with(Faker.instance()) {
@@ -89,5 +105,11 @@ data class Comment(
                     userId = User.mockUsers.random().id
                 )
             }
+
+        val mockComments = mutableListOf<Comment>().apply {
+            repeat(100) {
+                add(fakeComment)
+            }
+        }
     }
 }

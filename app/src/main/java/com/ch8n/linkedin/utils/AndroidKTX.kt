@@ -1,9 +1,11 @@
 package com.ch8n.linkedin.utils
 
 import android.util.Log
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import com.ch8n.linkedin.R
 import com.ch8n.linkedin.utils.base.ViewBindingActivity
@@ -13,6 +15,15 @@ import com.squareup.picasso.Picasso
 
 interface RecyclerInteraction<T> {
     fun onClick(payLoad: T)
+}
+
+fun View.setVisible(isVisible: Boolean) {
+    visibility = if (isVisible) View.VISIBLE else View.GONE
+}
+
+fun AppCompatTextView.clearLineLimits(){
+    maxLines = Integer.MAX_VALUE
+    ellipsize = null
 }
 
 fun AppCompatImageView.loadImage(url: String) {

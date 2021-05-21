@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import com.ch8n.linkedin.databinding.ActivityMainBinding
+import com.ch8n.linkedin.ui.detail.DetailFragment
 import com.ch8n.linkedin.ui.feeds.FeedsFragment
+import com.ch8n.linkedin.ui.feeds.adapter.Feed
 import com.ch8n.linkedin.ui.home.HomeFragment
 import com.ch8n.linkedin.ui.login.LoginFragment
 import com.ch8n.linkedin.ui.post.PostFragment
@@ -31,4 +33,6 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>(), Router {
     override fun toFeedScreen() = commitTransaction(FeedsFragment())
 
     override fun toPostScreen() = commitTransaction(PostFragment())
+
+    override fun toDetailScreen(feed: Feed) = commitTransaction(DetailFragment.newInstance(feed))
 }

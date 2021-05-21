@@ -23,6 +23,7 @@ class FeedsFragment : ViewBindingFragment<FragmentFeedsBinding>() {
             .newInstance(object : RecyclerInteraction<Feed> {
                 override fun onClick(payLoad: Feed) {
                     toast(payLoad.toString())
+                    router.toDetailScreen(payLoad)
                 }
             }
             ).also { feedsAdapter = it }
