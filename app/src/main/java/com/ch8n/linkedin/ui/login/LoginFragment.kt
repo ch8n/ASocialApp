@@ -12,7 +12,12 @@ class LoginFragment : ViewBindingFragment<FragmentLoginBinding>() {
         get() = FragmentLoginBinding::inflate
 
     override fun setup() {
-
+        // TODO
+        // 1. add bottom sheet for login manager
+        // 2. phone picker and password taker
+        // do api call to validate user
+        // update prefs and login user
+        // write espresso test
     }
 
     override val TAG: String
