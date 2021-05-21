@@ -25,19 +25,19 @@ class PostFragment : ViewBindingFragment<FragmentPostBinding>() {
                 override fun onClick(payLoad: Feed) {
                     router.toDetailScreen(payLoad)
                 }
-            }
-            ).also { postAdapter = it }
+            })
+            .also { postAdapter = it }
             .also { listUserPost.adapter = it }
             .also {
                 val feeds = Post.fakePosts
-                    .filter { it.id == User.superUser.id }
                     .map { post ->
                         val creator = User.mockUsers.first { user ->
                             user.id == post.userId
                         }
                         Feed(post, creator)
+                    }.filter {
+                        it.post.userId == User.superUser.id
                     }
-
                 containerNoPost.root.setVisible(feeds.isEmpty())
                 containerNoPost.textEmpty.text = "You didn't Post"
                 it.submitList(feeds)
