@@ -18,17 +18,16 @@ import com.ch8n.linkedin.utils.requiredFragmentContainer
 class MainActivity : ViewBindingActivity<ActivityMainBinding>(), Router {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Injector.init(applicationContext)
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        Injector.init(applicationContext)
     }
 
     override val bindingInflater: (LayoutInflater) -> ActivityMainBinding
         get() = ActivityMainBinding::inflate
 
     override fun setup(): Unit = with(binding) {
-        //val isUserLoggedIn = Injector.appPrefs.isLogin
-        val isUserLoggedIn = true
+        val isUserLoggedIn = Injector.appPrefs.isLogin
         if (isUserLoggedIn) {
             toHomeScreen()
         } else {
@@ -36,7 +35,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>(), Router {
         }
     }
 
-    override fun toLoginScreen() = commitTransaction(LoginFragment())
+    override fun toLoginScreen() = commitTransaction(LoginFragment(), addToStack = false)
 
     override fun toHomeScreen() = commitTransaction(HomeFragment(), addToStack = false)
 

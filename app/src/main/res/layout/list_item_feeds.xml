@@ -53,8 +53,6 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/button_comments"
         android:layout_width="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:layout_marginStart="16dp"

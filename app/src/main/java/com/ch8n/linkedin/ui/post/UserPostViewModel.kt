@@ -28,8 +28,7 @@ class UserPostViewModel(
 
     fun getUserFeeds() {
         viewModelScope.launch {
-            //val userId = appPrefs.userId
-            val userId = User.superUser.id
+            val userId = appPrefs.userId
             val result = Result.build { postRepository.getUserPosts(userId) }
             when (result) {
                 is Result.Error -> _error.value = result.error to "Something Went Wrong!"
