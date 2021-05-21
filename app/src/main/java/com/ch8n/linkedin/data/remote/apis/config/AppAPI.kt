@@ -21,7 +21,6 @@ object AppAPI {
     object Post {
         const val GET_SOCIAL_FEEDS = "/feeds"
         const val GET_USER_POST = "/post/{userId}"
-        const val GET_POST_COMMENTS = "/post/comments/{postId}"
     }
 
     object Auth {

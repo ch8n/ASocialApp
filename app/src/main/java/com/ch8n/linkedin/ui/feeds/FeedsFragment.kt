@@ -1,5 +1,6 @@
 package com.ch8n.linkedin.ui.feeds
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.ch8n.linkedin.data.models.Post
@@ -7,18 +8,43 @@ import com.ch8n.linkedin.data.models.User
 import com.ch8n.linkedin.databinding.FragmentFeedsBinding
 import com.ch8n.linkedin.ui.feeds.adapter.Feed
 import com.ch8n.linkedin.ui.feeds.adapter.FeedsAdapter
+import com.ch8n.linkedin.ui.feeds.di.FeedDI
 import com.ch8n.linkedin.utils.RecyclerInteraction
 import com.ch8n.linkedin.utils.base.ViewBindingFragment
-import com.ch8n.linkedin.utils.toast
+import com.google.android.material.snackbar.Snackbar
 
 class FeedsFragment : ViewBindingFragment<FragmentFeedsBinding>() {
+
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentFeedsBinding
         get() = FragmentFeedsBinding::inflate
 
     private var feedsAdapter: FeedsAdapter? = null
+    private val viewModel by lazy { FeedDI.provideFeedViewModel(this) }
 
     override fun setup(): Unit = with(binding) {
+
+        pullRefresh.isRefreshing = true
+
+        viewModel.error.observe(viewLifecycleOwner) {
+            it ?: return@observe
+            pullRefresh.isRefreshing = false
+            val (error, message) = it
+            Log.e(TAG, message, error)
+            Snackbar.make(listFeed, message, Snackbar.LENGTH_SHORT).show()
+        }
+
+        viewModel.socialFeeds.observe(viewLifecycleOwner) {
+            it ?: return@observe
+            feedsAdapter?.submitList(it) {
+                pullRefresh.isRefreshing = false
+            }
+        }
+
+        pullRefresh.setOnRefreshListener {
+            viewModel.getSocialFeeds()
+        }
+
         FeedsAdapter
             .newInstance(object : RecyclerInteraction<Feed> {
                 override fun onClick(payLoad: Feed) {
@@ -27,15 +53,8 @@ class FeedsFragment : ViewBindingFragment<FragmentFeedsBinding>() {
             }
             ).also { feedsAdapter = it }
             .also { listFeed.adapter = it }
-            .also {
-                val feeds = Post.fakePosts.map { post ->
-                    val creator = User.mockUsers.first { user ->
-                        user.id == post.userId
-                    }
-                    Feed(post, creator)
-                }
-                it.submitList(feeds)
-            }
+
     }
 
+    override val TAG: String get() = "FeedsFragment"
 }

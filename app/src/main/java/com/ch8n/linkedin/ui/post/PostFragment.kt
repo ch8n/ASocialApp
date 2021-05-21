@@ -29,7 +29,7 @@ class PostFragment : ViewBindingFragment<FragmentPostBinding>() {
             .also { postAdapter = it }
             .also { listUserPost.adapter = it }
             .also {
-                val feeds = Post.fakePosts
+                val feeds = Post.mockPosts
                     .map { post ->
                         val creator = User.mockUsers.first { user ->
                             user.id == post.userId
@@ -43,5 +43,8 @@ class PostFragment : ViewBindingFragment<FragmentPostBinding>() {
                 it.submitList(feeds)
             }
     }
+
+    override val TAG: String
+        get() = "PostFragment"
 
 }

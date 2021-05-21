@@ -9,4 +9,5 @@ interface Router {
     fun toFeedScreen()
     fun toPostScreen()
     fun toDetailScreen(feed: Feed)
+    fun back()
 }

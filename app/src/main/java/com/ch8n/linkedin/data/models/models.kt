@@ -65,7 +65,7 @@ data class Post(
     companion object {
         val empty = Post(id = "", userId = "", content = "", comments = emptyList())
 
-        val fakePost
+        private val fakePost
             get() = with(Faker.instance()) {
                 val post = Post(
                     id = UUID.randomUUID().toString(),
@@ -82,7 +82,7 @@ data class Post(
                 post
             }
 
-        val fakePosts by lazy {
+        val mockPosts by lazy {
             mutableListOf<Post>().apply {
                 repeat(100) { add(fakePost) }
             }
@@ -99,7 +99,7 @@ data class Comment(
     val userAvatar: String,
 ) : Parcelable {
     companion object {
-        val fakeComment
+        private val fakeComment
             get() = with(Faker.instance()) {
                 val user = User.mockUsers.random()
                 Comment(
@@ -107,11 +107,11 @@ data class Comment(
                     message = elderScrolls().quote(),
                     userId = user.id,
                     userName = user.userName,
-                    userAvatar = user.avatarUrl
+                    userAvatar = user.avatarUrl,
                 )
             }
 
-        val mockComments = mutableListOf<Comment>().apply {
+        val mockComments: List<Comment> = mutableListOf<Comment>().apply {
             repeat(100) {
                 add(fakeComment)
             }

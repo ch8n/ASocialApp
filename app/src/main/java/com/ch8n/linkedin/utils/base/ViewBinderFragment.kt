@@ -13,6 +13,7 @@ import com.ch8n.linkedin.ui.router.Router
 // https://chetangupta.net/viewbinding/
 abstract class ViewBindingFragment<VB : ViewBinding> : Fragment() {
 
+    abstract val TAG: String
     private var _binding: ViewBinding? = null
     abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> VB
 

@@ -11,6 +11,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : ViewBindingFragment<FragmentHomeBinding>() {
 
+
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
 
@@ -53,5 +54,8 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>() {
         homePagerAdapter?.onClear()
         homePagerAdapter = null
     }
+
+    override val TAG: String get() = "HomeFragment"
+
 
 }

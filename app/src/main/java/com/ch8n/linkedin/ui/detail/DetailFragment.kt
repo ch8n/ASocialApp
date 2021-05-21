@@ -58,7 +58,7 @@ class DetailFragment : ViewBindingFragment<FragmentDetailBinding>() {
             /* LifecycleOwner*/this@DetailFragment,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    router.toHomeScreen()
+                    router.back()
                 }
             }
         )
@@ -70,7 +70,10 @@ class DetailFragment : ViewBindingFragment<FragmentDetailBinding>() {
         commentsAdapter = null
     }
 
+    override val TAG: String get() = "DetailFragment"
+
     companion object {
+
         const val DETAIL_FEED = "feed"
 
         fun newInstance(feed: Feed) = DetailFragment().apply {

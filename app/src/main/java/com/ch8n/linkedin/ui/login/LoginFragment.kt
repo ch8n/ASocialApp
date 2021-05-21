@@ -15,4 +15,7 @@ class LoginFragment : ViewBindingFragment<FragmentLoginBinding>() {
 
     }
 
+    override val TAG: String
+        get() = "LoginFragment"
+
 }

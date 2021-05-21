@@ -1,12 +1,14 @@
 package com.ch8n.linkedin.utils
 
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.ch8n.linkedin.R
 import com.ch8n.linkedin.utils.base.ViewBindingActivity
 import com.ch8n.linkedin.utils.base.ViewBindingFragment
@@ -21,7 +23,9 @@ fun View.setVisible(isVisible: Boolean) {
     visibility = if (isVisible) View.VISIBLE else View.GONE
 }
 
-fun AppCompatTextView.clearLineLimits(){
+fun <T> MutableLiveData<T>.asLiveData(): LiveData<T> = this
+
+fun AppCompatTextView.clearLineLimits() {
     maxLines = Integer.MAX_VALUE
     ellipsize = null
 }
@@ -29,6 +33,7 @@ fun AppCompatTextView.clearLineLimits(){
 fun AppCompatImageView.loadImage(url: String) {
     Picasso.get()
         .load(url)
+        .placeholder(R.drawable.ic_avatar)
         .resize(50, 50)
         .centerCrop()
         .into(this)
@@ -48,7 +53,10 @@ fun ViewBindingFragment<*>.toast(message: String) {
     Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
 }
 
-fun ViewBindingActivity<*>.commitTransaction(fragment: Fragment, onCompleted: () -> Unit = {}) {
+fun ViewBindingActivity<*>.commitTransaction(
+    fragment: ViewBindingFragment<*>,
+    onCompleted: () -> Unit = {}
+) {
     supportFragmentManager
         .also {
             if (isFinishing && !it.isStateSaved) {
@@ -56,9 +64,11 @@ fun ViewBindingActivity<*>.commitTransaction(fragment: Fragment, onCompleted: ()
             }
         }
         .beginTransaction()
-        .replace(requiredFragmentContainer().id, fragment)
-        .runOnCommit { onCompleted.invoke() }
+        .add(requiredFragmentContainer().id, fragment)
+        .addToBackStack(fragment.TAG)
         .commit()
+    supportFragmentManager.executePendingTransactions()
+    Handler().post(onCompleted)
 }
 
 fun ViewBindingActivity<*>.requiredFragmentContainer(): FrameLayout {
