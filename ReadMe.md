@@ -2,8 +2,8 @@
 Social feed app similar to linkedIn
 
 # Demo 
-- download link (here)[./demo.apk]
-- demo video
+- download link [here](./demo.apk)
+- demo video link [here](https://user-images.githubusercontent.com/11576342/119217776-23ca8f80-bafa-11eb-9b69-d523996bd974.mp4)
 
 
 # Requirements
