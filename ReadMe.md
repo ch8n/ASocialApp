@@ -2,10 +2,10 @@
 Social feed app similar to linkedIn
 
 # Screenshot
-<img src="./preview1" width="200" height="400">
-<img src="./preview2" width="200" height="400">
-<img src="./preview3" width="200" height="400">
-<img src="./preview4" width="200" height="400">
+<img src="preview3.jpeg" width="200" height="400">
+<img src="preview2.jpeg" width="200" height="400">
+<img src="preview1.jpeg" width="200" height="400">
+<img src="preview4.jpeg" width="200" height="400">
 
 # Demo 
 - download link [here](./demo.apk)
@@ -25,7 +25,33 @@ Social feed app similar to linkedIn
 - [x] Each truncated post shows the name of the owner of the post, some avatar image of him,
 - [x] first two lines of the post followed by three dots, and the numeric count of comments on that post
 - [x] Clicking on a truncated post takes the user to a details page, where he sees the full post and all comments. 
-- [x] Keep a logout option as well.
+- [x] logout option 
+
+
+## :eyes: Social
+[LinkedIn](https://bit.ly/ch8n-linkdIn) |
+[Medium](https://bit.ly/ch8n-medium-blog) |
+[Twitter](https://bit.ly/ch8n-twitter) |
+[StackOverflow](https://bit.ly/ch8n-stackOflow) |
+[CodeWars](https://bit.ly/ch8n-codewar) |
+[Portfolio](https://bit.ly/ch8n-home) |
+[Github](https://bit.ly/ch8n-git) |
+[Instagram](https://bit.ly/ch8n-insta) |
+[Youtube](https://bit.ly/ch8n-youtube)
+
+
+## :cop: License
+Shield: [![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]
+
+This work is licensed under a
+[Creative Commons Attribution-ShareAlike 4.0 International License][cc-by-sa].
+
+[![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa]
+
+[cc-by-sa]: http://creativecommons.org/licenses/by-sa/4.0/
+[cc-by-sa-image]: https://licensebuttons.net/l/by-sa/4.0/88x31.png
+[cc-by-sa-shield]: https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg
+
  
 NOTE: No features around creating a new post or adding a new comment etc. 
 All posts and comments are pre-existing.
