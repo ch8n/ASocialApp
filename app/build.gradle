@@ -49,6 +49,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     // fake objects
     implementation 'com.github.javafaker:javafaker:1.0.2'
+
+    // image loading
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     // ViewModel and Livedata
@@ -65,5 +67,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
+    // Permission
+    implementation 'pub.devrel:easypermissions:3.0.0'
 
 }

@@ -1,5 +1,6 @@
 package com.ch8n.linkedin.ui.login
 
+import android.Manifest
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,9 +10,12 @@ import com.ch8n.linkedin.ui.login.loginManager.LoginManagerDialog
 import com.ch8n.linkedin.ui.login.loginManager.SIGNIN
 import com.ch8n.linkedin.utils.base.ViewBindingFragment
 import com.google.android.material.snackbar.Snackbar
+import pub.devrel.easypermissions.AppSettingsDialog
+import pub.devrel.easypermissions.EasyPermissions
 
 
-class LoginFragment : ViewBindingFragment<FragmentLoginBinding>() {
+class LoginFragment : ViewBindingFragment<FragmentLoginBinding>(),
+    EasyPermissions.PermissionCallbacks {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLoginBinding
         get() = FragmentLoginBinding::inflate
@@ -45,8 +49,6 @@ class LoginFragment : ViewBindingFragment<FragmentLoginBinding>() {
             router.toHomeScreen()
         }
 
-
-        // 1. add bottom sheet for login manager
         buttonPasswordManager.setOnClickListener {
             viewModel.setLoading(true)
             val loginManager =
@@ -56,22 +58,58 @@ class LoginFragment : ViewBindingFragment<FragmentLoginBinding>() {
                 .show(childFragmentManager, LoginManagerDialog.TAG)
         }
 
-
-        // 2. phone picker and password taker
         buttonPhonePicker.setOnClickListener {
-            viewModel.setLoading(true)
-            val loginManager =
-                childFragmentManager.findFragmentByTag(LoginManagerDialog.TAG) as? LoginManagerDialog
-            loginManager?.dismiss()
-            LoginManagerDialog().setLoginType(SIGNIN.CONTACT_PICKER)
-                .show(childFragmentManager, LoginManagerDialog.TAG)
+            checkContactsPermission()
         }
-        // do api call to validate user
-        // update prefs and login user
-        // write espresso test
+    }
+
+    private fun hasContactsPermission(): Boolean {
+        return EasyPermissions.hasPermissions(requireContext(), Manifest.permission.READ_CONTACTS)
+    }
+
+    fun checkContactsPermission() {
+        if (!hasContactsPermission()) {
+            EasyPermissions.requestPermissions(
+                this,
+                "Contact picker wont work without permission...",
+                1001,
+                Manifest.permission.READ_CONTACTS
+            )
+        } else {
+            onContactPick()
+        }
+    }
+
+    fun onContactPick() {
+        viewModel.setLoading(true)
+        val loginManager =
+            childFragmentManager.findFragmentByTag(LoginManagerDialog.TAG) as? LoginManagerDialog
+        loginManager?.dismiss()
+        LoginManagerDialog().setLoginType(SIGNIN.CONTACT_PICKER)
+            .show(childFragmentManager, LoginManagerDialog.TAG)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+        if (requestCode == 1001) {
+            onContactPick()
+        }
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            AppSettingsDialog.Builder(this).build().show()
+        }
     }
 
     override val TAG: String
         get() = "LoginFragment"
-
 }
