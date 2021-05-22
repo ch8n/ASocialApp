@@ -2,10 +2,18 @@
 Social feed app similar to linkedIn
 
 # Screenshot
-<img src="preview3.jpeg" width="200" height="400">
-<img src="preview2.jpeg" width="200" height="400">
-<img src="preview1.jpeg" width="200" height="400">
-<img src="preview4.jpeg" width="200" height="400">
+<table style="width:100%">
+<tr>
+ <th><img src="preview3.jpeg" width="200" height="400"></th>
+ <th><img src="preview2.jpeg" width="200" height="400"></th>
+ <th><img src="preview1.jpeg" width="200" height="400"></th>
+ <th><img src="preview4.jpeg" width="200" height="400"></th>
+</tr>
+</table>
+
+
+
+
 
 # Demo 
 - download link [here](./demo.apk)
