@@ -1,10 +1,10 @@
 package com.ch8n.linkedin.data.remote.apis.sources.post
 
+import com.ch8n.linkedin.data.models.Feed
 import com.ch8n.linkedin.data.models.Post
 import com.ch8n.linkedin.data.models.User
 import com.ch8n.linkedin.data.remote.apis.config.ApiManager
 import com.ch8n.linkedin.data.remote.apis.config.AppAPI
-import com.ch8n.linkedin.ui.feeds.adapter.Feed
 import kotlinx.coroutines.delay
 import retrofit2.http.GET
 import retrofit2.http.Path

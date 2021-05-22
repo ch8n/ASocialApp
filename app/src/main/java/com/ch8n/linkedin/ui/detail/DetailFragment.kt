@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import com.ch8n.linkedin.data.models.Comment
+import com.ch8n.linkedin.data.models.Feed
 import com.ch8n.linkedin.data.models.Post
 import com.ch8n.linkedin.data.models.User
 import com.ch8n.linkedin.databinding.FragmentDetailBinding
 import com.ch8n.linkedin.ui.detail.adapter.CommentsAdapter
-import com.ch8n.linkedin.ui.feeds.adapter.Feed
 import com.ch8n.linkedin.utils.base.ViewBindingFragment
 import com.ch8n.linkedin.utils.clearLineLimits
 import com.ch8n.linkedin.utils.loadImage

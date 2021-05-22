@@ -1,25 +1,16 @@
 package com.ch8n.linkedin.ui.feeds.adapter
 
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.ch8n.linkedin.data.models.Post
-import com.ch8n.linkedin.data.models.User
+import com.ch8n.linkedin.data.models.Feed
 import com.ch8n.linkedin.databinding.ListItemFeedsBinding
 import com.ch8n.linkedin.utils.RecyclerInteraction
 import com.ch8n.linkedin.utils.cancelPendingImage
 import com.ch8n.linkedin.utils.loadImage
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
-data class Feed(val post: Post, val user: User) : Parcelable {
-    companion object {
-        val empty = Feed(Post.empty, User.empty)
-    }
-}
 
 class FeedsAdapter private constructor(
     diffUtil: DiffUtil.ItemCallback<Feed>,

@@ -3,11 +3,10 @@ package com.ch8n.linkedin.ui.feeds
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.ch8n.linkedin.data.models.Feed
 import com.ch8n.linkedin.databinding.FragmentFeedsBinding
-import com.ch8n.linkedin.ui.feeds.adapter.Feed
 import com.ch8n.linkedin.ui.feeds.adapter.FeedsAdapter
 import com.ch8n.linkedin.ui.feeds.di.FeedDI
-import com.ch8n.linkedin.ui.post.di.PostDI
 import com.ch8n.linkedin.utils.RecyclerInteraction
 import com.ch8n.linkedin.utils.base.ViewBindingFragment
 import com.ch8n.linkedin.utils.setVisible

@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.ch8n.linkedin.data.local.prefs.AppPrefs
 import com.ch8n.linkedin.data.models.User
 import com.ch8n.linkedin.data.repos.UserRepository
-import com.ch8n.linkedin.ui.feeds.adapter.Feed
 import com.ch8n.linkedin.utils.Result
 import com.ch8n.linkedin.utils.asLiveData
 import kotlinx.coroutines.launch

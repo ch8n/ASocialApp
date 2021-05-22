@@ -4,9 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ch8n.linkedin.data.local.prefs.AppPrefs
-import com.ch8n.linkedin.data.models.User
+import com.ch8n.linkedin.data.models.Feed
 import com.ch8n.linkedin.data.repos.PostRepository
-import com.ch8n.linkedin.ui.feeds.adapter.Feed
 import com.ch8n.linkedin.utils.Result
 import com.ch8n.linkedin.utils.asLiveData
 import kotlinx.coroutines.launch

@@ -6,6 +6,13 @@ import kotlinx.parcelize.Parcelize
 import java.util.*
 
 @Parcelize
+data class Feed(val post: Post, val user: User) : Parcelable {
+    companion object {
+        val empty = Feed(Post.empty, User.empty)
+    }
+}
+
+@Parcelize
 data class User(
     val id: String,
     val password: String,

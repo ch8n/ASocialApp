@@ -2,11 +2,11 @@ package com.ch8n.linkedin
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import com.ch8n.linkedin.data.models.Feed
 import com.ch8n.linkedin.databinding.ActivityMainBinding
 import com.ch8n.linkedin.di.Injector
 import com.ch8n.linkedin.ui.detail.DetailFragment
 import com.ch8n.linkedin.ui.feeds.FeedsFragment
-import com.ch8n.linkedin.ui.feeds.adapter.Feed
 import com.ch8n.linkedin.ui.home.HomeFragment
 import com.ch8n.linkedin.ui.login.LoginFragment
 import com.ch8n.linkedin.ui.post.PostFragment
