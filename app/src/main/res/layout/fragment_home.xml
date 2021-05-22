@@ -13,7 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tabs"
-        android:id="@+id/pager_notes"
+        android:id="@+id/pager_home"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 

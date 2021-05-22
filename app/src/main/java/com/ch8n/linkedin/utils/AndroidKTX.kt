@@ -65,7 +65,7 @@ fun ViewBindingActivity<*>.commitTransaction(
             }
         }
         .beginTransaction()
-        .replace(requiredFragmentContainer().id, fragment)
+        .add(requiredFragmentContainer().id, fragment)
         .apply {
             if (addToStack) addToBackStack(fragment.TAG)
         }

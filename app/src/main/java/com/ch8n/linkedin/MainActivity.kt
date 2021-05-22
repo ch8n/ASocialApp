@@ -13,7 +13,6 @@ import com.ch8n.linkedin.ui.post.PostFragment
 import com.ch8n.linkedin.ui.router.Router
 import com.ch8n.linkedin.utils.base.ViewBindingActivity
 import com.ch8n.linkedin.utils.commitTransaction
-import com.ch8n.linkedin.utils.requiredFragmentContainer
 
 class MainActivity : ViewBindingActivity<ActivityMainBinding>(), Router {
 
@@ -46,6 +45,10 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>(), Router {
     override fun toDetailScreen(feed: Feed) = commitTransaction(DetailFragment.newInstance(feed))
 
     override fun back() {
-        supportFragmentManager.popBackStackImmediate()
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            supportFragmentManager.popBackStackImmediate()
+        } else {
+            finish()
+        }
     }
 }

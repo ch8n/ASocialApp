@@ -20,11 +20,11 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>() {
         HomePagerAdapter
             .newInstance(this@HomeFragment.requireActivity())
             .also { homePagerAdapter = it }
-            .also { pagerNotes.adapter = it }
-            .also { pagerNotes.setPageTransformer(ZoomOutPageTransformer()) }
-            .also { pagerNotes.isUserInputEnabled = false }
+            .also { pagerHome.adapter = it }
+            .also { pagerHome.setPageTransformer(ZoomOutPageTransformer()) }
+            .also { pagerHome.isUserInputEnabled = false }
             .let {
-                TabLayoutMediator(tabs, pagerNotes) { tab, position ->
+                TabLayoutMediator(tabs, pagerHome) { tab, position ->
                     tab.text = it.getTabName(position)
                 }
             }.attach()
@@ -37,11 +37,11 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>() {
             /* LifecycleOwner*/this@HomeFragment,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    isEnabled = pagerNotes.currentItem != 0
+                    isEnabled = pagerHome.currentItem != 0
                     if (isEnabled) {
-                        pagerNotes.currentItem = pagerNotes.currentItem - 1
+                        pagerHome.currentItem = pagerHome.currentItem - 1
                     } else {
-                        requireActivity().onBackPressed()
+                        router.back()
                     }
                 }
             }

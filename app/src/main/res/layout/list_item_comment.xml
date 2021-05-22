@@ -49,4 +49,6 @@
         app:layout_constraintStart_toStartOf="@id/text_comment_name"
         app:layout_constraintTop_toBottomOf="@id/text_comment_name" />
 
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

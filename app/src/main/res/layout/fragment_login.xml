@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/loader"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,102 +9,109 @@
     android:background="@color/black"
     tools:context=".ui.login.LoginFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/image_social"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="120dp"
-        app:cardBackgroundColor="@color/design_default_color_secondary_variant"
-        app:cardCornerRadius="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <androidx.cardview.widget.CardView
+            android:id="@+id/image_social"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:tint="@color/white"
-            app:srcCompat="@drawable/ic_social" />
-    </androidx.cardview.widget.CardView>
+            android:layout_marginTop="120dp"
+            app:cardBackgroundColor="@color/design_default_color_secondary_variant"
+            app:cardCornerRadius="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/ic_social" />
+        </androidx.cardview.widget.CardView>
 
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text_logo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="16dp"
-        android:text="A Social App"
-        android:textColor="@color/white"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/image_social" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="A Social App"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/image_social" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text_signin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:gravity="center"
-        android:text="Sign in with :"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/text_logo" />
-
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_password_manager"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:drawableLeft="@drawable/ic_password"
-        android:drawableTint="@color/white"
-        android:text="Login Manager"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/design_default_color_primary_variant"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_signin" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text_or"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="OR"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/button_password_manager" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_phone_picker"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/design_default_color_secondary_variant"
-        android:drawableLeft="@drawable/ic_phone"
-        android:drawableTint="@color/white"
-        android:text="Phone Picker"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_or" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text_disclamer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="*Permission needed"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/button_phone_picker" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_signin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="Sign in with :"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/text_logo" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_password_manager"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/design_default_color_primary_variant"
+            android:drawableLeft="@drawable/ic_password"
+            android:drawableTint="@color/white"
+            android:text="Login Manager"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_signin" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_or"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="OR"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/button_password_manager" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_phone_picker"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/design_default_color_secondary_variant"
+            android:drawableLeft="@drawable/ic_phone"
+            android:drawableTint="@color/white"
+            android:text="Phone Picker"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_or" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_disclamer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="*Permission needed"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/button_phone_picker" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
