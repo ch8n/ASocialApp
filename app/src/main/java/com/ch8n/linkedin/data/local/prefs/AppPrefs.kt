@@ -16,4 +16,8 @@ class AppPrefs(appContext: Context) : PrefsConfig(appContext, App_Prefs_Name) {
         get() = prefs.get(KEY_USER_ID, "")
         set(value) = prefs.put(KEY_USER_ID, value)
 
+    fun clearAll() {
+        prefs.edit().clear().apply()
+    }
+
 }

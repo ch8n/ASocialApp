@@ -32,6 +32,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>(), Router {
         } else {
             toLoginScreen()
         }
+
     }
 
     override fun toLoginScreen() = commitTransaction(LoginFragment(), addToStack = false)

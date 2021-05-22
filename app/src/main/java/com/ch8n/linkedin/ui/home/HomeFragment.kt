@@ -4,9 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import com.ch8n.linkedin.databinding.FragmentHomeBinding
+import com.ch8n.linkedin.di.Injector
 import com.ch8n.linkedin.ui.home.adapter.HomePagerAdapter
 import com.ch8n.linkedin.ui.home.adapter.ZoomOutPageTransformer
 import com.ch8n.linkedin.utils.base.ViewBindingFragment
+import com.ch8n.linkedin.utils.setVisible
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : ViewBindingFragment<FragmentHomeBinding>() {
@@ -15,6 +18,7 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>() {
         get() = FragmentHomeBinding::inflate
 
     private var homePagerAdapter: HomePagerAdapter? = null
+    private val appPrefs by lazy { Injector.appPrefs }
 
     override fun setup() = with(binding) {
         HomePagerAdapter
@@ -29,6 +33,18 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>() {
                 }
             }.attach()
 
+        buttonLogout.setOnClickListener {
+            containerLogout.setVisible(true)
+        }
+
+        buttonLogoutCancel.setOnClickListener {
+            containerLogout.setVisible(false)
+        }
+
+        buttonLogoutConfirm.setOnClickListener {
+            appPrefs.clearAll()
+            router.toLoginScreen()
+        }
         applyBackPressBehaviour()
     }
 
