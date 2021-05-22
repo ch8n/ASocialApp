@@ -1,10 +1,15 @@
 # Social App
 Social feed app similar to linkedIn
 
+# Screenshot
+<img src="./preview1" width="200" height="400">
+<img src="./preview2" width="200" height="400">
+<img src="./preview3" width="200" height="400">
+<img src="./preview4" width="200" height="400">
+
 # Demo 
 - download link [here](./demo.apk)
 - demo video link [here](https://user-images.githubusercontent.com/11576342/119217776-23ca8f80-bafa-11eb-9b69-d523996bd974.mp4)
-
 
 # Requirements
 - [x] Has a fixed set of pre-existing users, say 5 users.
