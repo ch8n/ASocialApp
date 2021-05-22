@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import com.ch8n.linkedin.databinding.FragmentLoginBinding
 import com.ch8n.linkedin.ui.login.di.LoginDI
 import com.ch8n.linkedin.ui.login.loginManager.LoginManagerDialog
+import com.ch8n.linkedin.ui.login.loginManager.SIGNIN
 import com.ch8n.linkedin.utils.base.ViewBindingFragment
 import com.google.android.material.snackbar.Snackbar
 
@@ -27,7 +28,8 @@ class LoginFragment : ViewBindingFragment<FragmentLoginBinding>() {
         viewModel.error.observe(viewLifecycleOwner) {
             it ?: return@observe
             viewModel.setLoading(false)
-            val loginManager = childFragmentManager.findFragmentByTag(LoginManagerDialog.TAG) as? LoginManagerDialog
+            val loginManager =
+                childFragmentManager.findFragmentByTag(LoginManagerDialog.TAG) as? LoginManagerDialog
             loginManager?.dismiss()
             val (error, message) = it
             Log.e(TAG, message, error)
@@ -37,7 +39,8 @@ class LoginFragment : ViewBindingFragment<FragmentLoginBinding>() {
         viewModel.user.observe(viewLifecycleOwner) {
             it ?: return@observe
             viewModel.setLoading(false)
-            val loginManager = childFragmentManager.findFragmentByTag(LoginManagerDialog.TAG) as? LoginManagerDialog
+            val loginManager =
+                childFragmentManager.findFragmentByTag(LoginManagerDialog.TAG) as? LoginManagerDialog
             loginManager?.dismiss()
             router.toHomeScreen()
         }
@@ -46,14 +49,23 @@ class LoginFragment : ViewBindingFragment<FragmentLoginBinding>() {
         // 1. add bottom sheet for login manager
         buttonPasswordManager.setOnClickListener {
             viewModel.setLoading(true)
-            val loginManager = childFragmentManager
-                .findFragmentByTag(LoginManagerDialog.TAG) as? LoginManagerDialog
+            val loginManager =
+                childFragmentManager.findFragmentByTag(LoginManagerDialog.TAG) as? LoginManagerDialog
             loginManager?.dismiss()
-            LoginManagerDialog().show(childFragmentManager, LoginManagerDialog.TAG)
+            LoginManagerDialog().setLoginType(SIGNIN.LOGIN_MANAGER)
+                .show(childFragmentManager, LoginManagerDialog.TAG)
         }
 
 
         // 2. phone picker and password taker
+        buttonPhonePicker.setOnClickListener {
+            viewModel.setLoading(true)
+            val loginManager =
+                childFragmentManager.findFragmentByTag(LoginManagerDialog.TAG) as? LoginManagerDialog
+            loginManager?.dismiss()
+            LoginManagerDialog().setLoginType(SIGNIN.CONTACT_PICKER)
+                .show(childFragmentManager, LoginManagerDialog.TAG)
+        }
         // do api call to validate user
         // update prefs and login user
         // write espresso test

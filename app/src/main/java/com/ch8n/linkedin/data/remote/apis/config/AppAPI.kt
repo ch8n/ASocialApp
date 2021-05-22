@@ -15,7 +15,7 @@ object BaseUrl {
 object AppAPI {
 
     object User {
-        const val GET_USER = "/user/{userId}"
+        const val GET_USER = "/users}"
     }
 
     object Post {

@@ -19,4 +19,8 @@ class UserRepository(private val userSource: UserSource) {
     suspend fun loginUser(userId: String, password: String) = withContext(Dispatchers.IO) {
         userSource.loginUser(userId, password)
     }
+
+    suspend fun getLoggableUsers() = withContext(Dispatchers.IO) {
+        userSource.getLoggableUser()
+    }
 }

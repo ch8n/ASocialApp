@@ -5,6 +5,8 @@ import com.ch8n.linkedin.data.models.Post
 import com.ch8n.linkedin.data.models.User
 import com.ch8n.linkedin.data.remote.apis.config.ApiManager
 import com.ch8n.linkedin.data.remote.apis.config.AppAPI
+import com.ch8n.linkedin.di.Injector
+import com.ch8n.linkedin.ui.login.loginManager.LOGIN_MANAGER
 import kotlinx.coroutines.delay
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -45,11 +47,16 @@ object FakePostService : PostService {
     override suspend fun getUserPost(userId: String): List<Feed> {
         // backend logic
         delay(500)
-        val posts = Post.mockPosts
-        val currentUser = User.mockUsers.first { it.id == userId }
-        val feeds = posts
-            .filter { post -> post.userId == currentUser.id }
-            .map { Feed(it, currentUser) }
+        val feeds = when (Injector.appPrefs.loginType) {
+            LOGIN_MANAGER -> {
+                val posts = Post.mockPosts
+                val currentUser = User.mockUsers.first { it.id == userId }
+                posts
+                    .filter { post -> post.userId == currentUser.id }
+                    .map { Feed(it, currentUser) }
+            }
+            else -> emptyList()
+        }
         return feeds
     }
 }

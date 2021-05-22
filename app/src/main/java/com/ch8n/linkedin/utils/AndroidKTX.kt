@@ -32,7 +32,13 @@ fun AppCompatTextView.clearLineLimits() {
 
 fun AppCompatImageView.loadImage(url: String) {
     Picasso.get()
-        .load(url)
+        .let {
+            if (url.isEmpty()) {
+                it.load(R.drawable.ic_avatar)
+            } else {
+                it.load(url)
+            }
+        }
         .placeholder(R.drawable.ic_avatar)
         .resize(50, 50)
         .centerCrop()
